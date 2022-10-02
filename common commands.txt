@@ -1,0 +1,259 @@
+Install ETCD
+
+1. Download Binaries
+curl -L https://github.com/etcd-io/etcd/releases/download/v3.3.11/etcd
+v3.3.11 - linux - amd64.tar.gz -o etcd - v3.3.11 - linux - amd64.tar.gz
+
+2. Extract
+tar xzvf etcd - v3.3.11 - linux - amd64.tar.gz
+
+3. Run ETCD Service
+./etcd
+
+store value
+./etcdctl set key1 value1
+
+get value
+./etcdctl get key1
+
+view options
+./etcdctl
+
+Setup - Manual ETCD
+
+1. Download Binaries
+wget -q --https - only \
+    " https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz "
+
+configure ETCD
+etcd.service
+
+get pods by namespace
+kubectl get pods -n kube - system
+
+get pods by keys
+kubect1 exec etcd - master -n kube - system etcdctl get / --prefix -keys - only
+
+get nodes
+kubectl get nodes
+
+kube - api server
+
+Installing kube - api server
+wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-apiserver
+
+apiserver service
+kube - apiserver.service
+
+View api - server - kubeadm
+View api - server - kubeadm
+
+View api - server options - kubeadm
+cat /etc/kubernetes/manifests/kube-apiserver.yaml
+
+View api - server options
+cat /etc/systemd/system/kube-apiserver.service
+{OR}
+ps -aux | grep kube - apiserver
+
+
+Kube Controller Manager
+
+Installing kube - controller - manager
+wget https: //storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/1inux/amd64/kube-controller-manager
+
+controller-manager.service
+kube-controller-manager.service
+
+View kube-controller-manager - kubeadm
+kubectl get pods -n kube-system
+
+View kube-controller-manager options - kubeadm
+cat /etc/kubernetes/manifests/kube-controller-manager.yaml
+
+View controller-manager options
+cat /etc/systemd/system/kube-controller-manager.service
+{OR}
+ps -aux | grep kube-controller-manager
+
+Kube Scheduler
+
+installing Kube Scheduler
+wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-scheduler
+
+View kube-scheduler options - kubeadm
+cat /etc/kubernetes/manifests/kube-scheduler.yaml
+
+View kube-scheduler options
+ps -aux | grep kube-scheduler
+
+Kubelet
+
+Installing kubelet
+wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubelet
+
+View kublet options
+kublet.service
+
+View kubelet options
+ps - aux | grep kubelet
+
+Kube proxy
+
+Installing kube-proxy
+wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-proxy
+kube-proxy.service
+
+View kube-proxy - kubeadm
+kubectl get pods -n kube-system
+
+View kube-daemonset by namespace
+kubectl get daemonset -n kube-system
+
+ReplicaSets
+
+kubectl create -f replicaset-definition.yml
+
+kubectl get replicaset
+
+kubectl delete replicaset myapp-replicaset
+
+kubect1 replace -f replicaset-definition.yml
+
+kubectl scale -replicas=6 -f replicaset-definition.yml
+
+common commands
+
+kubectl --help
+
+kubectl options
+
+kubectl get [pods, cluster, nodes, deployment, all, service] 
+
+kubectl describe [pods, cluster, nodes, deployment, all, service]
+
+Create a Pod
+kubectl run [NAME] [--image=NAME]
+
+Create an NGINX Pod
+kubectl run nginx --image=nginx {optional} [--dry-run=client] [-o yaml]
+
+Create a Pod expose on port 8080
+kubectl run custom-nginx --image=nginx --port=8080
+
+Create a deployment
+kubectl create deployment --image=nginx nginx
+
+Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run)
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
+
+Generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) with 4 Replicas (–replicas=4)
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml
+
+Save it to a file, make necessary changes to the file (for example, adding more replicas) and then create the deployment.
+kubectl create -f nginx-deployment.yaml
+
+{OR}
+
+In k8s version 1.19+, we can specify the –replicas option to create a deployment with 4 replicas.
+kubectl create deployment --image=nginx nginx --replicas=4 --dry-run=client -o yaml > nginx-deployment.yaml
+
+Create a deployment
+kubectl create deployment --image=nginx nginx {optional} [--dry-run=client] [-o yaml] [--replicas=4]
+
+expose port
+kubectl expose deployment nginx --port 80
+
+edit a deployment file
+kubectl edit deployment nginx
+
+scale a deployment
+kubectl scale deployment nginx --replicas=5
+
+kubectl set image deployment nginx nginx=nginx:1.18
+
+--dry-run=client  --> to test a command without deploy it
+
+-o yaml --> output the resource definition in YAML format
+
+Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379
+kubectl expose pod redis --port=6379 --name redis-service --dry-run=client -o yaml
+
+{or}
+
+kubectl create service clusterip redis-service --tcp=6379
+
+Create a Service named nginx of type NodePort to expose pod nginx’s port 80 on port 30080 on the nodes:
+kubectl expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-run=client -o yaml
+
+{or}
+
+kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml
+
+
+NameSpace
+How to reach a service from another namespace (example purpose only)
+mysql.connect("db-service.dev.svc.cluster.local")
+                        Service Name.Namespace.Service.domain
+
+Create a Namespace
+kubectl create namespace [NAME]
+
+Switch to another NameSpace
+kubectl config set-context $(kubect1 config current-context) --namespace=dev
+
+Getting pods from another namespace
+kubectl get pods --namespace=[NAME]
+
+{OR}
+
+kubectl get pods --all-namespaces
+
+Create pod in another namespace
+kubectl create -f [FILE-NAME.YAML] --namespace=[NAME]
+
+{OR}
+
+kubectl create deployment redis-deploy --image=redis -n dev-ns --replicas=2
+
+{OR}
+
+Moving NameSpace definition to the "MetaData" section in the yaml file
+
+pod-definition.yml
+apiVersion: v1
+kind: Pod
+
+metadata:
+   name: myapp-pod
+   namespace: dev
+   labels:
+      app: myapp
+      type: front-end
+spec:
+   containers:
+      - name: nginx-container
+      image: nginx
+
+
+imperative approach
+update objects
+editing a copy deployment of your yaml file
+kubectl edit deployment nginx
+
+editing the original yaml file
+kubectl replace -f nginx.yaml
+
+{or}
+
+kubectl replace --force -f nginx.yaml
+
+
+declarative approach
+create/update object
+kubectl apply -f nginx
+
+{or}
+
+kubectl apply -f /path/to/config-files
+
