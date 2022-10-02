@@ -1,0 +1,266 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Times New Roman;}{\f1\fnil Times New Roman;}}
+{\colortbl ;\red0\green0\blue255;\red255\green0\blue0;\red0\green77\blue187;\red0\green176\blue80;}
+{\*\generator Riched20 10.0.22000}\viewkind4\uc1 
+\pard\sl240\slmult1\ul\b\f0\fs32\lang9 Install ETCD\ulnone\b0\fs24\par
+\fs28\par
+\b 1. Download Binaries\b0\par
+\fs24 curl -L {{\field{\*\fldinst{HYPERLINK https://github.com/etcd-io/etcd/releases/download/v3.3.11/etcd }}{\fldrslt{https://github.com/etcd-io/etcd/releases/download/v3.3.11/etcd\ul0\cf0}}}}\f0\fs24\par
+v3.3.11 - linux - amd64.tar.gz -o etcd - v3.3.11 - linux - amd64.tar.gz\par
+\par
+\b\fs28 2. Extract\b0\fs24\par
+tar xzvf etcd - v3.3.11 - linux - amd64.tar.gz\par
+\par
+\b\fs28 3. Run ETCD Service\fs24\par
+\b0 ./etcd\par
+\par
+\b\fs28 store value\b0\fs24\par
+./etcdctl set key1 value1\par
+\par
+\b\fs28 get value\b0\fs24\par
+./etcdctl get key1\par
+\par
+\b\fs28 view options\b0\fs24\par
+./etcdctl\par
+\ul\b\par
+\fs32 Setup - Manual ETCD\par
+\fs24\par
+\ulnone\fs28 1. Download Binaries\fs24\par
+\b0 wget -q --https - only \\\par
+    " {{\field{\*\fldinst{HYPERLINK https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz }}{\fldrslt{https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz\ul0\cf0}}}}\f0\fs24  "\par
+\b\par
+\fs28 configure ETCD\b0\fs24\par
+etcd.service\par
+\par
+\b\fs28 get pods by namespace\fs24\par
+\b0 kubectl get pods -n kube - system\par
+\par
+\b\fs28 get pods by keys\b0\fs24\par
+kubect1 exec etcd - master -n kube - system etcdctl get / --prefix -keys - only\par
+\ul\par
+\ulnone\b\fs28 get nodes\ul\b0\fs24\par
+\ulnone kubectl get nodes\par
+\par
+\ul\b\fs32 kube - api server\par
+\ulnone\b0\fs24\par
+\b\fs28 Installing kube - api server\ul\par
+\ulnone\b0\fs24 wget {{\field{\*\fldinst{HYPERLINK https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-apiserver }}{\fldrslt{https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-apiserver\ul0\cf0}}}}\b\f0\fs24\par
+\par
+\fs28 apiserver service\fs24\par
+\b0 kube - apiserver.service\par
+\par
+\b\fs28 View api - server - kubeadm\par
+\b0\fs24 View api - server - kubeadm\par
+\par
+\b\fs28 View api - server options - kubeadm\par
+\b0\fs24 cat /etc/kubernetes/manifests/kube-apiserver.yaml\par
+\par
+\b\fs28 View api - server options\par
+\b0\fs24 cat /etc/systemd/system/kube-apiserver.service\par
+\b\{OR\}\fs28\par
+\b0\fs24 ps -aux | grep kube - apiserver\par
+\par
+\par
+\ul\b\fs32 Kube Controller Manager\par
+\par
+\ulnone\fs28 Installing kube - controller - manager\ul\par
+\ulnone\b0\fs24 wget https: //storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/1inux/amd64/kube-controller-manager\ul\b\fs28\par
+\par
+\ulnone controller-manager.service\ul\par
+\ulnone\b0\fs24 kube-controller-manager.service\par
+\par
+\b\fs28 View kube-controller-manager - kubeadm\b0\fs24\par
+kubectl get pods -n kube-system\par
+\par
+\b\fs28 View kube-controller-manager options - kubeadm\b0\fs24\par
+cat /etc/kubernetes/manifests/kube-controller-manager.yaml\par
+\par
+\b\fs28 View controller-manager options\par
+\b0\fs24 cat /etc/systemd/system/kube-controller-manager.service\par
+\b\{OR\}\b0\par
+ps -aux | grep kube-controller-manager\par
+\par
+\ul\b\fs32 Kube Scheduler\par
+\par
+\ulnone\fs28 installing Kube Scheduler\ul\fs32\par
+\ulnone\b0\fs24 wget {{\field{\*\fldinst{HYPERLINK https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-scheduler }}{\fldrslt{https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-scheduler\ul0\cf0}}}}\ul\b\f0\fs32\par
+\par
+\ulnone\fs28 View kube-scheduler options - kubeadm\par
+\b0\fs24 cat /etc/kubernetes/manifests/kube-scheduler.yaml\par
+\par
+\b\fs28 View kube-scheduler options\b0\fs24\par
+ps -aux | grep kube-scheduler\par
+\par
+\ul\b\fs32 Kubelet\par
+\par
+\ulnone\fs28 Installing kubelet\par
+\b0\fs24 wget {{\field{\*\fldinst{HYPERLINK https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubelet }}{\fldrslt{https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubelet\ul0\cf0}}}}\f0\fs24\par
+\par
+\b\fs28 View kublet options\par
+\b0\fs24 kublet.service\b\fs28\par
+
+\pard\ri32\sl240\slmult1\b0\fs24\par
+\b\fs28 View kubelet options\b0\fs24\par
+ps - aux | grep kubelet\par
+\par
+\ul\b\fs32 Kube proxy\par
+\par
+\ulnone\fs28 Installing kube-proxy\ul\fs32\par
+\ulnone\b0\fs24 wget {{\field{\*\fldinst{HYPERLINK https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-proxy }}{\fldrslt{https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-proxy\ul0\cf0}}}}\f0\fs24\par
+kube-proxy.service\par
+\par
+\b\fs28 View kube-proxy - kubeadm\b0\fs24\par
+kubectl get pods -n kube-system\par
+\par
+\b\fs28 View kube-daemonset by namespace\b0\fs24\par
+kubectl get daemonset -n kube-system\par
+\par
+\ul\b\fs32 ReplicaSets\par
+\par
+\ulnone\b0\fs24 kubectl create -f replicaset-definition.yml\par
+\par
+kubectl get replicaset\par
+\par
+kubectl delete replicaset myapp-replicaset\par
+\par
+kubect1 replace -f replicaset-definition.yml\par
+\par
+kubectl scale -replicas=6 -f replicaset-definition.yml\par
+\par
+\ul\b\fs32 common commands\par
+\par
+\ulnone\b0\fs24 kubectl --help\par
+\par
+kubectl options\par
+\par
+kubectl get [pods, cluster, nodes, deployment, all, service] \par
+\par
+kubectl describe [pods, cluster, nodes, deployment, all, service]\par
+\par
+\b\fs28 Create a Pod\b0\fs24\par
+kubectl run [NAME] [--image=NAME]\par
+\par
+\b\fs28 Create an NGINX Pod\b0\fs24\par
+kubectl run nginx --image=nginx \{optional\} [--dry-run=client] [-o yaml]\par
+\f1\par
+\b\f0\fs28 Create a Pod expose on port 8080\b0\f1\fs24\par
+kubectl run custom-nginx --image=nginx --port=8080\par
+\par
+\b\fs28 Create a deployment\fs24\par
+\b0\f0 kubectl create deployment --image=nginx nginx\par
+\par
+\b\fs28 Generate Deployment YAML file (-o yaml). Don\rquote t create it(\f1\endash dry-run)\b0\fs24\par
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml\par
+\par
+\b\fs28 Generate Deployment YAML file (-o yaml). Don\rquote t create it(\endash dry-run) with 4 Replicas (\endash replicas=4)\b0\fs24\par
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml\par
+\par
+\b\fs28 Save it to a file, make necessary changes to the file (for example, adding more replicas) and then create the deployment.\b0\fs24\par
+kubectl create -f nginx-deployment.yaml\par
+\par
+\b\f0\{OR\}\b0\f1\par
+\par
+\b\fs28 In k8s version 1.19+, we can specify the \endash replicas option to create a deployment with 4 replicas.\b0\fs24\par
+kubectl create deployment --image=nginx nginx --replicas=4 --dry-run=client -o yaml > nginx-deployment.yaml\par
+\f0\par
+\b\fs28 Create a deployment\b0\fs24\par
+kubectl create deployment --image=nginx nginx \{optional\} [--dry-run=client] [-o yaml] [--replicas=4]\par
+\par
+\b\fs28 expose port\b0\fs24\par
+kubectl expose deployment nginx --port 80\par
+\par
+\b\fs28 edit a deployment file\b0\fs24\par
+kubectl edit deployment nginx\par
+\par
+\b\fs28 scale a deployment\b0\fs24\par
+kubectl scale deployment nginx --replicas=5\par
+\par
+kubectl set image deployment nginx nginx=nginx:1.18\par
+\par
+--dry-run=client  --> to test a command without deploy it\par
+\par
+-o yaml --> output the resource definition in YAML format\par
+\par
+\b\fs28 Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379\par
+\b0\fs24 kubectl expose pod redis --port=6379 --name redis-service --dry-run=client -o yaml\par
+\par
+\{or\}\par
+\par
+kubectl create service clusterip redis-service --tcp=6379\par
+\par
+\b\fs28 Create a Service named nginx of type NodePort to expose pod nginx\rquote s port 80 on port 30080 on the nodes:\b0\fs24\par
+kubectl expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-run=client -o yaml\par
+\par
+\{or\}\par
+\par
+kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml\par
+\f1\par
+\par
+\ul\b\f0\fs32 NameSpace\par
+\ulnone\fs28 How to reach a service from another namespace (example purpose only)\b0\f1\fs24\par
+\f0 mysql.connect("\cf2 db-service\cf0 .\cf3 dev\cf0 .\cf4 svc\cf0 .cluster.local")\par
+                        \cf2\b Service Name\cf0 .\cf3 Namespace\cf0 .\cf4 Service\cf0 .domain\par
+\par
+\fs28 Create a Namespace\par
+\b0\fs24 kubectl create namespace [NAME]\par
+\par
+\b\fs28 Switch to another NameSpace\par
+\b0\fs24 kubectl config set-context $(kubect1 config current-context) --namespace=dev\b\par
+\par
+\fs28 Getting pods from another namespace\fs24\par
+\b0 kubectl get pods --namespace=[NAME]\par
+\par
+\b\{OR\}\par
+\par
+\b0 kubectl get pods --all-namespaces\par
+\par
+\b\fs28 Create pod in another namespace\par
+\b0\fs24 kubectl create -f [FILE-NAME.YAML] --namespace=[NAME]\par
+\par
+\b\{OR\}\par
+\par
+\b0 kubectl create deployment redis-deploy --image=redis -n dev-ns --replicas=2\b\par
+\par
+\{OR\}\par
+\par
+\fs28 Moving NameSpace definition to the "MetaData" section in the yaml file\par
+\fs24\par
+pod-definition.yml\b0\par
+apiVersion: v1\par
+kind: Pod\par
+\par
+metadata:\par
+   name: myapp-pod\par
+   namespace: dev\par
+   labels:\par
+      app: myapp\par
+      type: front-end\par
+spec:\par
+   containers:\par
+      - name: nginx-container\par
+      image: nginx\par
+\par
+\par
+\ul\b\fs32 imperative approach\ulnone\b0\fs24\par
+\b\fs28 update objects\par
+editing a copy deployment of your yaml file\par
+\b0\fs24 kubectl edit deployment nginx\par
+\par
+\b\fs28 editing the original yaml file\b0\fs24\par
+kubectl replace -f nginx.yaml\par
+\b\fs28\par
+\{or\}\par
+\b0\fs24\par
+kubectl replace --force -f nginx.yaml\par
+\par
+\par
+\ul\b\fs32 declarative approach\ulnone\b0\fs24\par
+\b\fs28 create/update object\b0\fs24\par
+kubectl apply -f nginx\par
+\par
+\b\fs28\{or\}\b0\fs24\par
+\par
+kubectl apply -f /path/to/config-files\par
+\par
+\par
+}
+ 
